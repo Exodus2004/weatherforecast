@@ -93,7 +93,7 @@
   margin-top: 40px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
   .app-container {
     padding: 15px;
   }
@@ -122,3 +122,44 @@
     gap: 15px;
   }
 }
+/* Optional: full-page centering when there’s only the card */
+.page-center {
+  min-height: calc(100vh - 140px); /* subtract header height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+/* Wrap your card in a div with className="page-center" in JSX if desired */
+/* Tighter forecast grid so it doesn’t look oversized under a smaller main card */
+.forecast-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+/* Center the main content and cap the card width */
+.app-main,
+.main-content,
+.container {
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: flex-start;   /* keep top aligned; use center to full-center */
+  padding: 24px 16px;
+}
+
+.weather-card {
+  /* keep it centered and responsive */
+  margin: 24px auto;
+  max-width: 500px;          /* reduce overall size; adjust 720–900px to taste */
+  width: 100%;
+}
+
+/* Keep forecast section centered and narrower too */
+.forecast-section,
+.forecast-container {
+  max-width: 980px;
+  margin: 16px auto;
+}
+

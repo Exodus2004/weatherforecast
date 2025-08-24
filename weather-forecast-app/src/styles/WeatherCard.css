@@ -1,186 +1,117 @@
+/* Weather card – glass-like without backdrop-filter */
+
 .weather-card {
-  background: var(--card-background);
-  border-radius: var(--border-radius);
-  padding: 30px;
-  box-shadow: var(--shadow-heavy);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: 800px;
-  margin: 0 auto;
-  transition: var(--transition);
-}
-
-.weather-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-}
-
-.weather-header {
+  position: relative;
   text-align: center;
-  margin-bottom: 30px;
+  padding: clamp(18px, 2.2vw, 28px);
+
+  /* Translucent layered background (no backdrop-filter) */
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16));
+
+  /* Light border and rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+
+  /* Depth + inner highlight for “glass” look */
+  box-shadow:
+    0 20px 40px rgba(17, 24, 39, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
 }
 
+/* Subtle sheen/highlight over the glass */
+.weather-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 40%),
+    radial-gradient(120% 60% at 0% 0%, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 60%);
+  mix-blend-mode: screen;
+  opacity: .9;
+}
+
+/* Hover elevation */
+.weather-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 28px 60px rgba(17, 24, 39, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* Recommended text contrast on glass */
+.city-name, .condition {
+  color: rgba(17, 24, 39, 0.95);
+}
+p, .feels-like, .temp-range, .detail-label, .detail-value {
+  color: rgba(17, 24, 39, 0.78);
+}
+
+/* Optional: ambient glow under main card to enhance depth */
+.weather-card::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 58%;
+  transform: translate(-50%, -50%);
+  width: min(720px, 90%);
+  height: min(360px, 52vw);
+  background:
+    radial-gradient(60% 60% at 25% 25%, rgba(102,126,234,0.36) 0%, transparent 70%),
+    radial-gradient(50% 50% at 75% 75%, rgba(118,75,162,0.36) 0%, transparent 70%);
+  filter: blur(44px);
+  opacity: 0.55;
+}
+
+/* Keep existing layout-specific rules below if you have them
+   (icon sizes, grids, etc.). Example safe refinements: */
+
+.weather-main { gap: clamp(14px, 2vw, 26px); }
+.weather-icon { width: clamp(80px, 10vw, 120px); height: auto; }
+.current-temp { font-size: clamp(2.4rem, 4.8vw, 4.2rem); font-weight: 400; }
+.details-grid { gap: clamp(12px, 1.6vw, 18px); }
+.detail-card { padding: 14px 16px; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; }
+.detail-icon { width: 36px; height: 36px; background: rgba(0,0,0,0.04); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+.detail-label { font-size: 0.82rem; letter-spacing: 0.4px; }
+.detail-value { font-size: 1.05rem; }
+/* Smaller, balanced typography on the card */
 .city-name {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 5px;
+  font-size: clamp(1.25rem, 1.1vw + 1rem, 1.8rem);
   letter-spacing: -0.02em;
 }
 
-.date {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  font-weight: 400;
-}
-
-.weather-main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  gap: 30px;
-}
-
-.temperature-section {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.weather-icon {
-  width: 120px;
-  height: 120px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-}
-
-.temperature-info {
-  text-align: left;
-}
-
 .current-temp {
-  font-size: 4.5rem;
-  font-weight: 300;
-  color: var(--text-primary);
+  /* previously quite large; bring it down */
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
   line-height: 1;
-  display: block;
-}
-
-.feels-like {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  margin: 8px 0;
-}
-
-.temp-range {
-  color: var(--text-light);
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
-.weather-description {
-  text-align: right;
 }
 
 .condition {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
 }
 
-.description {
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-  font-weight: 400;
+/* Tighten spacing around the hero row */
+.weather-main {
+  gap: clamp(10px, 1.6vw, 18px);
 }
 
-.weather-details {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding-top: 30px;
+/* Scale the weather icon a bit smaller */
+.weather-icon {
+  width: clamp(64px, 8vw, 92px);
+  height: auto;
 }
 
+/* Reduce details grid density slightly and keep text tidy */
 .details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: clamp(10px, 1.4vw, 16px);
 }
-
-.detail-card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 20px;
-  background: linear-gradient(135deg, rgba(103, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  border-radius: var(--border-radius-small);
-  transition: var(--transition);
-}
-
-.detail-card:hover {
-  background: linear-gradient(135deg, rgba(103, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-  transform: translateY(-2px);
-}
-
-.detail-icon {
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-}
-
-.detail-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.detail-label {
-  color: var(--text-light);
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.detail-value {
-  color: var(--text-primary);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-@media (max-width: 768px) {
-  .weather-card {
-    padding: 25px;
-  }
-  
-  .city-name {
-    font-size: 2rem;
-  }
-  
-  .weather-main {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-  
-  .weather-description {
-    text-align: center;
-  }
-  
-  .current-temp {
-    font-size: 3.5rem;
-  }
-  
-  .condition {
-    font-size: 1.5rem;
-  }
-  
-  .details-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-}
+.detail-card { padding: 12px 14px; }
+.detail-label { font-size: 0.8rem; }
+.detail-value { font-size: 0.98rem; }
