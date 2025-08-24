@@ -36,3 +36,8 @@ body {
 #root {
   min-height: 100vh;
 }
+body {
+  background: linear-gradient(135deg, #90caf9 0%, #b39ddb 50%, #ffe082 100%);
+  background-attachment: fixed;
+}
+
