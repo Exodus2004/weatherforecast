@@ -283,3 +283,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Weatherforecast update 96
 
 - Weatherforecast update 97
+
+- Weatherforecast update 98
