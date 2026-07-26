@@ -171,3 +171,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Weatherforecast update 40
 
 - Weatherforecast update 41
+
+- Weatherforecast update 42
