@@ -99,3 +99,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Gold PR tier update 2
 
 - Gold PR tier update 3
+
+- Gold PR tier update 4
