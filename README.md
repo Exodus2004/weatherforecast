@@ -159,3 +159,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Weatherforecast update 34
 
 - Weatherforecast update 35
+
+- Weatherforecast update 36
